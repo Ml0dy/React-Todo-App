@@ -1,13 +1,30 @@
 import React from "react"
 
-const Form = ({ setInputText, setTodos, todos, inputText, id, setId }) => {
+const Form = ({
+  setInputText,
+  setTodos,
+  todos,
+  inputText,
+  id,
+  setId,
+  isImportant,
+  setImportant,
+}) => {
   const inputTextHandler = (e) => {
     console.log(e.target.value)
     setInputText(e.target.value)
   }
+
+  const importancyHandler = () => {
+    setImportant(!isImportant)
+  }
+
   const submitTodoHandler = (e) => {
     e.preventDefault()
-    setTodos([...todos, { text: inputText, completed: false, id: id }])
+    setTodos([
+      ...todos,
+      { text: inputText, completed: false, id: id, isImportant: isImportant },
+    ])
     setId(id + 1)
     setInputText("")
   }
@@ -29,6 +46,16 @@ const Form = ({ setInputText, setTodos, todos, inputText, id, setId }) => {
           <option value="complited">Complited</option>
           <option value="uncomplited">Uncomplited</option>
         </select>
+      </div>
+      <div className="inputCheckbox">
+        <label>
+          <input
+            onClick={importancyHandler}
+            type="checkbox"
+            checked={isImportant}
+          />
+          Ważne!
+        </label>
       </div>
     </form>
   )
